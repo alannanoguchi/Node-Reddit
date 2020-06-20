@@ -1,9 +1,12 @@
 // Initialize express
 const express = require('express')
-const app = express()
+// require handlebars
+const exphbs = require('express-handlebars');
 
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
+
+const app = express()
 
 // Use Body Parser
 app.use(bodyParser.json());
@@ -12,23 +15,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Add after body parser initialization!
 app.use(expressValidator());
 
-// require handlebars
-const exphbs = require('express-handlebars');
-
-// Set db
-require('./data/reddit-db');
-
 
 // Use "main" as our default layout
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 // Use handlebars to render
 app.set('view engine', 'handlebars');
-
-
-// Tell our app to send the "hello world" message to our home page
-app.get('/', (req, res) => {
-    res.render('home', { msg: 'Reddit.js' });
-  })
 
 
 // // New Post Route with async/await
@@ -39,6 +30,9 @@ app.get('/', (req, res) => {
 //         return console.log(err)
 //     }
 // })
+
+// Set db
+require('./data/reddit-db');
 
 
 // Must be at the bottom on server.js
