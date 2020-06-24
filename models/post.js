@@ -8,10 +8,4 @@ const PostSchema = new Schema({
   subreddit: { type: String, required: true }
 });
 
-const CommentSchema = new Schema({
-  content: { type: String, required: true },
-  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
-});
-
 module.exports = mongoose.model("Post", PostSchema);
-module.exports = mongoose.model("Comment", CommentSchema);

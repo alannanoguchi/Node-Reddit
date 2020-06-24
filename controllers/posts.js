@@ -33,15 +33,16 @@ module.exports = (app) => {
         }
     })
 
-    // SHOW
     app.get("/posts/:id", function(req, res) {
         // LOOK UP THE POST
-        Post.findById(req.params.id).populate('comments').then((post) => {
-            res.render('post-show', { post })
-        }).catch((err) => {
-            console.log(err.message)
-        })
-    });
+        Post.findById(req.params.id).populate('comments').lean()
+          .then(post => {
+            res.render("posts-show", { post });  
+          })
+          .catch(err => {
+              console.log(err.message);
+          });
+      });
 
     // SUBREDDIT
     app.get("/n/:subreddit", function(req, res) {
