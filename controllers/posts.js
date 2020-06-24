@@ -4,15 +4,14 @@ module.exports = (app) => {
 
     // INDEX
     app.get('/', (req, res) => {
-        Post.find({}).lean()
-            .then(posts => {
-                res.render("posts-index", { posts });
-            })
-            .catch(err => {
-                console.log(err.message);
-            });
+        Post.find({}).lean().then(posts => {
+            res.render("posts-index", { posts });
+        }).catch(err => {
+            console.log(err.message);
+        });
     });
 
+    
     // CREATE
     app.post('/posts/new', (req, res) => {
         // INSTANTIATE INSTANCE OF POST MODEL
@@ -21,11 +20,11 @@ module.exports = (app) => {
         // SAVE INSTANCE OF POST MODEL TO DB
         post.save((err, post) => {
         // REDIRECT TO THE ROOT
-        return res.redirect(`/`);
-    })
-});
+            return res.redirect(`/`);
+        })
+    });
 
-        // New Post Route with async/await
+    // New Post Route with async/await
     app.get('/posts/new', async (req, res) => {
         try {
             res.render('posts-new', {});
@@ -37,12 +36,10 @@ module.exports = (app) => {
     // SHOW
     app.get("/posts/:id", function(req, res) {
         // LOOK UP THE POST
-        Post.findById(req.params.id)
-          .then(post => {
+        Post.findById(req.params.id).then(post => {
             res.render("posts-show", { post });
-          })
-          .catch(err => {
+        }).catch(err => {
             console.log(err.message);
-          });
-      });
+        });
+    });
 };

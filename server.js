@@ -1,12 +1,13 @@
 // Initialize express
 const express = require('express')
+const app = express()
+
 // require handlebars
 const exphbs = require('express-handlebars');
 
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 
-const app = express()
 
 // Use Body Parser
 app.use(bodyParser.json());
@@ -22,15 +23,6 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 
-// // New Post Route with async/await
-// app.get('/posts/new', async (req, res) => {
-//     try {
-//         res.render('posts-new', {});
-//     } catch(err) {
-//         return console.log(err)
-//     }
-// })
-
 // Set db
 require('./data/reddit-db');
 
@@ -39,9 +31,11 @@ require('./data/reddit-db');
 require('./controllers/posts.js')(app);
 
 // Choose a port to listen on
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
+
+module.exports = app;
 
 // Tell the app what port to listen on
 app.listen(port, () => {
-  console.log('App listening on port 3000!')
+  console.log('App listening on port 3001!')
 })
