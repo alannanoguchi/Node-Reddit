@@ -21,8 +21,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Add after body parser initialization!- another middleware, validates and sanitizes string inputs
 app.use(expressValidator());
 
-app.use(cookieParser()); // Add this after you initialize express.
-
 
 // Use "main" as our default layout
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -30,18 +28,21 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 // Use handlebars to render
 app.set('view engine', 'handlebars');
 
-const checkAuth = (req, res, next) => {
-  console.log("Checking authentication");
-  if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
-    req.user = null;
-  } else {
-    var token = req.cookies.nToken;
-    var decodedToken = jwt.decode(token, { complete: true }) || {};
-    req.user = decodedToken.payload;
-  }
+app.use(cookieParser()); // Add this after you initialize express.
 
-  next();
-};
+
+const checkAuth = (req, res, next) => {
+    console.log("Checking authentication");
+    if (typeof req.cookies.nToken === "undefined" || req.cookies.nToken === null) {
+      req.user = null;
+    } else {
+      var token = req.cookies.nToken;
+      var decodedToken = jwt.decode(token, { complete: true }) || {};
+      req.user = decodedToken.payload;
+    }
+
+    next();
+  };
 app.use(checkAuth);
 
 

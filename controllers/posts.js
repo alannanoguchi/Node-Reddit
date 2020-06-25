@@ -7,20 +7,20 @@ module.exports = (app) => {
         const currentUser = req.user;
       
         Post.find({})
-          .then(posts => {
-            res.render("posts-index", { posts, currentUser });
-          })
-          .catch(err => {
+        .then(posts => {
+            res.render("posts-index", {posts, currentUser});
+        })
+        .catch(err => {
             console.log(err.message);
-          });
+        });
       });
 
     
     // CREATE
     app.post("/posts/new", (req, res) => {
         if (req.user) {
-            const post = new Post(req.body);
-        
+            var post = new Post(req.body);
+    
             post.save(function(err, post) {
                 return res.redirect(`/`);
             });
