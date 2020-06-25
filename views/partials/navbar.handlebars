@@ -14,13 +14,18 @@
           Login
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/login">Login</a>
-          <a class="dropdown-item" href="/logout">Logout</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="/sign-up">Sign Up</a>
+          {{#if currentUser}}
+            <a class="dropdown-item" href="/logout">Logout</a>
+          {{else}}
+            <a class="dropdown-item" href="/login">Login</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/sign-up">Sign Up</a>
+          {{/if}}
         </div>
       </li>
     </ul>
+    {{#if currentUser}}
       <a href="/posts/new" class="btn btn-outline-success navbar-btn">New Post</a>
+    {{/if}}
   </div>
 </nav>
