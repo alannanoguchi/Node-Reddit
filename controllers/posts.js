@@ -4,7 +4,7 @@ module.exports = (app) => {
 
     // INDEX
     app.get('/', (req, res) => {
-        var currentUser = req.user;
+        const currentUser = req.user;
         // res.render('home', {});
         console.log(req.cookies);
         Post.find().populate('author')
@@ -20,7 +20,7 @@ module.exports = (app) => {
     // CREATE
     app.post("/posts/new", (req, res) => {
         if (req.user) {
-            var post = new Post(req.body);
+            const post = new Post(req.body);
             post.author = req.user._id;
 
             post
@@ -43,14 +43,14 @@ module.exports = (app) => {
 
     });
 
-    // New Post Route with async/await
-    app.get('/posts/new', async (req, res) => {
-        try {
-            res.render('posts-new', {});
-        } catch(err) {
-            return console.log(err)
-        }
-    })
+    // // New Post Route with async/await
+    // app.get('/posts/new', async (req, res) => {
+    //     try {
+    //         res.render('posts-new', {});
+    //     } catch(err) {
+    //         return console.log(err)
+    //     }
+    // })
 
 
     // SHOW
