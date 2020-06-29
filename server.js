@@ -56,11 +56,11 @@ require('./controllers/auth.js')(app);
 
 
 // Choose a port to listen on
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3002;
 
 module.exports = app;
 
 // Tell the app what port to listen on
 app.listen(port, () => {
-  console.log('App listening on port 3001!')
+  console.log('App listening on port 3002!')
 })
