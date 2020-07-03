@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
 module.exports = (app) => {
 
@@ -38,6 +39,7 @@ module.exports = (app) => {
                     console.log(err.message);
                 });
         } else {
+            console.log('no user found')
             return res.status(401); // UNAUTHORIZED
         }
 
@@ -45,16 +47,13 @@ module.exports = (app) => {
 
     // New Post Route with async/await
     app.get('/posts/new', async (req, res) => {
-        try {
-            res.render('posts-new', {});
-        } catch(err) {
-            return console.log(err)
-        }
+        const currentUser = req.user;
+        res.render('posts-new', { currentUser });
     })
 
     // SHOW
     app.get("/posts/:id", function (req, res) {
-        var currentUser = req.user;
+        const currentUser = req.user;
         Post.findById(req.params.id).populate('comments').lean()
             .then(post => {
                 res.render("posts-show", { post, currentUser });  
