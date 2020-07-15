@@ -35,6 +35,8 @@ app.engine('handlebars', hbs.engine);
 // Use handlebars to render
 app.set('view engine', 'handlebars');
 
+app.use(express.static('public'));
+
 app.use(cookieParser()); // Add this after you initialize express.
 
 
